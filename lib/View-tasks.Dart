@@ -9,12 +9,12 @@ void main() {
   ));
 }
 
-class Page1 extends StatefulWidget {
+class Myview extends StatefulWidget {
   @override
-  _Page1State createState() => _Page1State();
+  _MyviewState createState() => _MyviewState();
 }
 
-class _Page1State extends State<Page1> {
+class _MyviewState extends State<Myview> {
   TextEditingController etTaskname = new TextEditingController();
   TextEditingController etTasktime = new TextEditingController();
 
@@ -128,6 +128,7 @@ class ViewScreen extends StatefulWidget {
 }
 
 class _ViewScreenState extends State<ViewScreen> {
+  List<Task> tasks = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
