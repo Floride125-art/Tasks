@@ -208,7 +208,6 @@ class _TasksState extends State<Tasks> {
 
             // List to display tasks
             SizedBox(
-<<<<<<< HEAD
               height: 200,
               child: ListView.builder(
                 itemCount: myarray.length,
@@ -230,30 +229,6 @@ class _TasksState extends State<Tasks> {
                 },
               ),
             ),
-=======
-                height: 200,
-                child: ListView.builder(
-                  itemCount: tasks.length,
-                  itemBuilder: (ctx, index) {
-                    return ListTile(
-                      title: Text(tasks.elementAt(index).title),
-                      subtitle: Text(tasks.elementAt(index).time),
-                      trailing: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                          smsCodeController.text = tasks.elementAt(index).title;
-                          smsCodeController2.text = tasks.elementAt(index).time;
-                        },
-                        icon: Icon(Icons.edit),
-                      ),
-                    );
-                  },
-                )),
-            // changes in text
-            // are shown here
->>>>>>> ac5e6d0 (updating)
           ],
         ),
       ),
