@@ -20,7 +20,7 @@ class _Page1State extends State<Page1> {
   var taskNameError = '';
   var taskTimeError = '';
 
-  bool validate() {
+  bool validate() { 
     if (etTaskname.text == "" && etTasktime.text == "") {
       this.setState(() {
         taskNameError = "Please provide task name";
