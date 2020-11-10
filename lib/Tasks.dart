@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Todos ',
+    title: 'Todo ',
     theme: ThemeData(primaryColor: Colors.red),
     home: Tasks(),
   ));
