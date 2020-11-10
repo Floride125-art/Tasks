@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:Tasks/View-tasks.Dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,6 +18,9 @@ class Tasks extends StatefulWidget {
 class _TasksState extends State<Tasks> {
   TextEditingController etTaskname = new TextEditingController();
   TextEditingController etTasktime = new TextEditingController();
+
+  Mytask task = Mytask("", "");
+  List<Mytask> myarray = [];
 
   var taskNameError = '';
   var taskTimeError = '';
@@ -62,6 +67,7 @@ class _TasksState extends State<Tasks> {
           );
         });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +104,7 @@ class _TasksState extends State<Tasks> {
               child: TextFormField(
                 controller: etTaskname,
                 decoration: InputDecoration(
-                  // contentPadding:  const EdgeInsets.only(left: 3.0),
+                    // contentPadding:  const EdgeInsets.only(left: 3.0),
                     hintText: 'Please Enter Task Name',
                     errorText:
                         taskNameError == "" ? "" : "Please enter task name"),
@@ -110,7 +116,8 @@ class _TasksState extends State<Tasks> {
                 controller: etTasktime,
                 decoration: InputDecoration(
                   hintText: 'Task Time',
-                  errorText: taskTimeError == "" ? "" : "Please enter task time",
+                  errorText:
+                      taskTimeError == "" ? "" : "Please enter task time",
                   suffixIcon: IconButton(
                       icon: Icon(Icons.timer),
                       onPressed: () async {
@@ -138,24 +145,36 @@ class _TasksState extends State<Tasks> {
                   MaterialButton(
                     onPressed: () {
                       bool isValid = validate();
-                      if (isValid) {
-                        etTaskname.clear();
-                        etTasktime.clear();
-                        alterMessage("Task Added Successful");
+                      if (!isValid) {
+                        return null;
                       }
+                      myarray.add(Mytask(etTaskname.text, etTasktime.text));
+                      etTaskname.clear();
+                      etTasktime.clear();
+                      alterMessage("Task Added Successful");
+                      task.name = etTaskname.text;
+                      task.time = etTasktime.text;
                     },
                     color: Colors.red,
                     textColor: Colors.white,
                     child: Text('Add'),
                   ),
                   SizedBox(width: 12.0),
-                                    MaterialButton(
-                    onPressed: () {},
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (BuildContext context) => ViewScreen(
+                            mytask: myarray,
+                          ),
+                        ),
+                      );
+                    },
                     color: Colors.red,
                     textColor: Colors.white,
                     child: Text('View'),
                   ),
-
                 ],
               ),
             )
@@ -164,4 +183,11 @@ class _TasksState extends State<Tasks> {
       ),
     );
   }
+}
+
+class Mytask {
+  String name;
+  String time;
+
+  Mytask(this.name, this.time);
 }
