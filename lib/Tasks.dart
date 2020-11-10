@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
                           deletetasks.removeAt(selectedIndex = index);
                         });
                       },
-                      icon: Icon(Icons.delete),
+                      icon: Icon(Icons.delete, color: Colors.red),
                     ),
                   );
                 },
