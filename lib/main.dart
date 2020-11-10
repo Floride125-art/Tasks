@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'DeleteTasks.dart';
+import 'Tasks.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyDelete(),
+      home: Tasks(),
     );
   }
 }

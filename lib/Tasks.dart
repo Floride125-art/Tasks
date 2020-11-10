@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 
-void main() => runApp(MyDelete());
+void main() => runApp(Tasks());
 
-class MyDelete extends StatelessWidget {
+class Tasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
