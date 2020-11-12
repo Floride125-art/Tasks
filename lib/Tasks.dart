@@ -206,42 +206,54 @@ class _TasksState extends State<Tasks> {
               ],
             ),
             SizedBox(
-              height: 100,
+              height: 200,
               child: ListView.builder(
                 itemCount: myarray.length,
                 itemBuilder: (ctx, index) {
-                  return ListTile(
-                    title: Text(myarray.elementAt(index).name),
-                    subtitle: Text(myarray.elementAt(index).time),
-                    trailing: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                        etTaskname.text = myarray.elementAt(index).name;
-                        etTasktime.text = myarray.elementAt(index).time;
-                      },
-                      icon: Icon(Icons.edit),
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: 40,
-              child: ListView.builder(
-                itemCount: myarray.length,
-                itemBuilder: (ctx, index) {
-                  return ListTile(
-                    trailing: IconButton(
-                      onPressed: () {
-                        this.setState(() {
-                          isDelete = true;
-                          myarray.removeAt(selectedIndex = index);
-                          selectedIndex = null;
-                        });
-                      },
-                      icon: Icon(Icons.delete, color: Colors.red),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            children: [
+                              Text(myarray.elementAt(index).name),
+                              Text(myarray.elementAt(index).time),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    selectedIndex = index;
+                                  });
+                                  etTaskname.text =
+                                      myarray.elementAt(index).name;
+                                  etTasktime.text =
+                                      myarray.elementAt(index).time;
+                                },
+                                icon: Icon(Icons.edit),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  this.setState(() {
+                                    isDelete = true;
+                                    myarray.removeAt(selectedIndex = index);
+                                    selectedIndex = null;
+                                  });
+                                },
+                                icon: Icon(Icons.delete, color: Colors.red),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
