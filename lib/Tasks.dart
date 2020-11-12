@@ -1,3 +1,4 @@
+import 'package:Tasks/models/task.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Tasks/View-tasks.Dart';
@@ -24,8 +25,7 @@ class _TasksState extends State<Tasks> {
   TextEditingController etTaskname = new TextEditingController();
   TextEditingController etTasktime = new TextEditingController();
 
-  Mytask task = Mytask("", "");
-  List<Mytask> myarray = [];
+  List<Task> myarray = [];
 
   var taskNameError = '';
   var taskTimeError = '';
@@ -80,7 +80,7 @@ class _TasksState extends State<Tasks> {
         if (!isValid) {
           return null;
         }
-        myarray.add(Mytask(
+        myarray.add(Task(
           etTaskname.text,
           etTasktime.text,
         ));
@@ -234,11 +234,4 @@ class _TasksState extends State<Tasks> {
       ),
     );
   }
-}
-
-class Mytask {
-  String name;
-  String time;
-
-  Mytask(this.name, this.time);
 }
