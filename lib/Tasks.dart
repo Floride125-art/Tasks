@@ -1,6 +1,6 @@
 import 'package:Tasks/models/task.model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 import 'package:Tasks/View-tasks.Dart';
 
 void main() {
@@ -19,6 +19,7 @@ class Tasks extends StatefulWidget {
 class _TasksState extends State<Tasks> {
   int selectedIndex;
   String title;
+  bool isDelete = false;
   String text = "No Value Entered";
   String title2;
   String text2 = "No Value Entered";
@@ -96,8 +97,6 @@ class _TasksState extends State<Tasks> {
     });
   }
 
-  // List to hold all tasks
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,11 +127,13 @@ class _TasksState extends State<Tasks> {
             SizedBox(
               height: 8.0,
             ),
-
             Padding(
               padding: const EdgeInsets.all(15),
               child: TextField(
                   decoration: InputDecoration(
+                    hintText: 'Please Enter Task Name',
+                    errorText:
+                        taskNameError == "" ? "" : "Please enter task name",
                     labelText: 'Task',
                     border: OutlineInputBorder(),
                   ),
@@ -145,6 +146,9 @@ class _TasksState extends State<Tasks> {
               padding: const EdgeInsets.all(15),
               child: TextField(
                 decoration: InputDecoration(
+                  hintText: 'Task Time',
+                  errorText:
+                      taskTimeError == "" ? "" : "Please enter task time",
                   labelText: 'Time',
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(
@@ -180,7 +184,9 @@ class _TasksState extends State<Tasks> {
                 ),
                 RaisedButton(
                   onPressed: _setText,
-                  child: Text(selectedIndex == null ? 'Add' : 'Save'),
+                  child: Text(selectedIndex == null || isDelete == true
+                      ? 'Add'
+                      : 'Save'),
                   color: Colors.red,
                   textColor: Colors.white,
                   elevation: 8,
@@ -205,25 +211,55 @@ class _TasksState extends State<Tasks> {
                 ),
               ],
             ),
-
-            // List to display tasks
             SizedBox(
               height: 200,
               child: ListView.builder(
                 itemCount: myarray.length,
                 itemBuilder: (ctx, index) {
-                  return ListTile(
-                    title: Text(myarray.elementAt(index).name),
-                    subtitle: Text(myarray.elementAt(index).time),
-                    trailing: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                        etTaskname.text = myarray.elementAt(index).name;
-                        etTasktime.text = myarray.elementAt(index).time;
-                      },
-                      icon: Icon(Icons.edit),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            children: [
+                              Text(myarray.elementAt(index).name),
+                              Text(myarray.elementAt(index).time),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    selectedIndex = index;
+                                  });
+                                  etTaskname.text =
+                                      myarray.elementAt(index).name;
+                                  etTasktime.text =
+                                      myarray.elementAt(index).time;
+                                },
+                                icon: Icon(Icons.edit),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  this.setState(() {
+                                    isDelete = true;
+                                    myarray.removeAt(selectedIndex = index);
+                                    selectedIndex = null;
+                                  });
+                                },
+                                icon: Icon(Icons.delete, color: Colors.red),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
