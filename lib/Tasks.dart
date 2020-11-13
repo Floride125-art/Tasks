@@ -131,6 +131,9 @@ class _TasksState extends State<Tasks> {
               padding: const EdgeInsets.all(15),
               child: TextField(
                   decoration: InputDecoration(
+                    hintText: 'Please Enter Task Name',
+                    errorText:
+                        taskNameError == "" ? "" : "Please enter task name",
                     labelText: 'Task',
                     border: OutlineInputBorder(),
                   ),
@@ -143,6 +146,9 @@ class _TasksState extends State<Tasks> {
               padding: const EdgeInsets.all(15),
               child: TextField(
                 decoration: InputDecoration(
+                  hintText: 'Task Time',
+                  errorText:
+                      taskTimeError == "" ? "" : "Please enter task time",
                   labelText: 'Time',
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(
