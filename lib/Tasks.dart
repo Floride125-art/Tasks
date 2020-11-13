@@ -271,9 +271,3 @@ class _TasksState extends State<Tasks> {
     );
   }
 }
-
-class Mytask {
-  String name;
-  String time;
-  Mytask(this.name, this.time);
-}
