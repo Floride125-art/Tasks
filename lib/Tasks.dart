@@ -3,14 +3,6 @@ import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:Tasks/View-tasks.Dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Todo',
-    theme: ThemeData(primaryColor: Colors.red),
-    home: Tasks(),
-  ));
-}
-
 class Tasks extends StatefulWidget {
   @override
   _TasksState createState() => _TasksState();
@@ -25,7 +17,9 @@ class _TasksState extends State<Tasks> {
   String text2 = "No Value Entered";
   TextEditingController etTaskname = new TextEditingController();
   TextEditingController etTasktime = new TextEditingController();
+  TextEditingController etdescription = new TextEditingController();
 
+  Task task = Task("", "", "");
   List<Task> myarray = [];
 
   var taskNameError = '';
@@ -84,16 +78,21 @@ class _TasksState extends State<Tasks> {
         myarray.add(Task(
           etTaskname.text,
           etTasktime.text,
+          etdescription.text,
         ));
         alterMessage("Task Added Successful");
       } else {
         myarray.elementAt(selectedIndex).name = etTaskname.text;
         myarray.elementAt(selectedIndex).time = etTasktime.text;
+        myarray.elementAt(selectedIndex).description= etdescription.text;
+
+
 
         selectedIndex = null;
       }
       etTaskname.clear();
       etTasktime.clear();
+      etdescription.clear();
     });
   }
 
@@ -174,6 +173,15 @@ class _TasksState extends State<Tasks> {
                 controller: etTasktime,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Details',
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: etdescription),
+            ),
             Row(
               children: [
                 SizedBox(
@@ -204,6 +212,42 @@ class _TasksState extends State<Tasks> {
                         ),
                       ),
                     );
+                    Container(
+                      child: Row(children: [
+                        SizedBox(width: 80.0),
+                        MaterialButton(
+                          onPressed: () {
+                            bool isValid = validate();
+                            if (!isValid) {
+                              return null;
+                            }
+                            myarray.add(Task(etTaskname.text, etTasktime.text,
+                                etdescription.text));
+                            etTaskname.clear();
+                            etTasktime.clear();
+                            
+                            alterMessage("Task Added Successful");
+                            task.name = etTaskname.text;
+                            task.time = etTasktime.text;
+                            
+                          },
+                          color: Colors.red,
+                          textColor: Colors.white,
+                          child: Text('Add'),
+                        ),
+                        SizedBox(width: 12.0),
+                        MaterialButton(onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (BuildContext context) => ViewScreen(
+                                mytask: myarray,
+                              ),
+                            ),
+                          );
+                        }),
+                      ]),
+                    );
                   },
                   color: Colors.red,
                   textColor: Colors.white,
@@ -227,6 +271,7 @@ class _TasksState extends State<Tasks> {
                             children: [
                               Text(myarray.elementAt(index).name),
                               Text(myarray.elementAt(index).time),
+                             
                             ],
                           ),
                         ),
@@ -243,6 +288,7 @@ class _TasksState extends State<Tasks> {
                                       myarray.elementAt(index).name;
                                   etTasktime.text =
                                       myarray.elementAt(index).time;
+                          
                                 },
                                 icon: Icon(Icons.edit),
                               ),
